@@ -1,0 +1,47 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>dev.gaphunter.rubyshellinjectioncompanion</id>
+    <name>Ruby Shell Injection Companion</name>
+    <vendor>Gap Hunter Labs</vendor>
+    <description><![CDATA[
+        <p>Warning on <code>system(...)</code>, <code>exec(...)</code>,
+        backticks (<code>` `</code>), or <code>%x[...]</code> whose
+        command string contains <code>#{...}</code> interpolation --
+        Ruby's own official documentation states: "Some Ruby core
+        methods accept string data that includes text to be executed
+        as a system command and should not be called with unknown or
+        unsanitized commands", specifically naming
+        <code>Kernel#exec</code>, <code>Kernel#spawn</code>,
+        <code>Kernel#system</code>, and the backtick method.</p>
+        <p>Confirmed real and undetected: none of RuboCop's 7
+        <code>Security</code> cops (<code>Eval</code>,
+        <code>Open</code>, <code>IoMethods</code>,
+        <code>MarshalLoad</code>, <code>YAMLLoad</code>,
+        <code>JSONLoad</code>, <code>CompoundHash</code>) cover shell
+        command injection -- confirmed by reading RuboCop's own
+        Security cops documentation page directly before building
+        this.</p>
+        <p><b>100% static text analysis</b> -- a regex-based line
+        scanner, not a real Ruby parser, so it works whether the Ruby
+        plugin is installed or not.</p>
+        <p>Stated honestly: v0.1 doesn't trace whether the interpolated
+        value actually originates from untrusted input, so a
+        <code>#{}</code> interpolation of a hardcoded constant is a
+        possible (rare) false positive. The safe
+        <code>system(cmd, arg1, arg2)</code> array form (separate
+        arguments, no shell interpretation) is correctly never flagged.</p>
+        <p>Free. No license nags, no telemetry, no network calls.</p>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <localInspection language=""
+            groupName="Ruby Shell Injection Companion"
+            displayName="Interpolated command string passed to a shell"
+            enabledByDefault="true"
+            level="WARNING"
+            implementationClass="dev.gaphunter.rubyshellinjectioncompanion.inspection.ShellCommandInjectionInspection"/>
+        <notificationGroup id="Ruby Shell Injection Companion" displayType="BALLOON"/>
+    </extensions>
+</idea-plugin>
