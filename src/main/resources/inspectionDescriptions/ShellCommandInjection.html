@@ -1,0 +1,10 @@
+<html>
+<body>
+Reports <code>system(...)</code>, <code>exec(...)</code>, backticks or <code>%x[...]</code> whose command string contains
+<code>#{...}</code> interpolation.
+<!-- tooltip end -->
+<p>The string is run through a shell, so interpolated user data can become part of the command. Ruby's
+documentation warns against passing unknown or unsanitized commands to these methods. Pass the command and its
+arguments separately (<code>system("ls", path)</code>), which bypasses the shell.</p>
+</body>
+</html>
