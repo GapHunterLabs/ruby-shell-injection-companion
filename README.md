@@ -48,7 +48,7 @@ interpolated command string shows a warning.
 ## Support
 
 - **Bugs and feature requests:** [GitHub Issues](https://github.com/GapHunterLabs/ruby-shell-injection-companion/issues)
-- **Questions, or custom rules for a team's codebase:** **gaphunterlabs@gmail.com**
+- **Questions, or custom rules for a team's codebase:** **contact@gaphunterlabs.com**
 - **Security vulnerabilities:** report privately as described in [SECURITY.md](SECURITY.md), not in a public issue.
 - **Privacy and network behavior:** [PRIVACY.md](PRIVACY.md)
 
